@@ -1,0 +1,15 @@
+{
+    "name": "aiesec-opportunities",
+    "version": "1.0.0",
+    "description": "An app to track new available opportunities in the AIESEC portal",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Griyftan",
+    "license": "ISC",
+    "dependencies": {
+        "mongodb": "^2.2.11"
+    }
+}
