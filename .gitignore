@@ -4,3 +4,4 @@
 .eslintrc.json
 jsconfig.json
 typings.json
+npm-debug.log
