@@ -1,4 +1,6 @@
 var http = require("https");
+var EventEmitter = require("events");
+var util = require("util");
 
 
 function getPage(page, callback) {
@@ -39,15 +41,34 @@ function getPage(page, callback) {
 }
 
 
-module.exports.getOpps = function(callback) {
+function OppsFetcher(callback) {
+    this.callback = callback;
+    this.pageCount = 1;
+}
+
+util.inherits(OppsFetcher, EventEmitter);
+
+OppsFetcher.prototype.getPages = function() {
     getPage(1, (err, page) => {
         if (err)
-            callback(err);
+            this.callback(err);
         else if (page.paging.total_items == 1 || page.paging.total_items != page.paging.total_pages) {
-            callback(null, page);
-            for (var pageI = 2; pageI <= page.paging.total_pages; pageI++)
-                getPage(pageI, callback);
+            this.callback(null, page);
+            this.pageCount = page.paging.total_pages;
+
+            for (var pageI = 2; pageI <= this.pageCount; pageI++) {
+                if (pageI == this.pageCount)
+                    getPage(pageI, (err, page) => {
+                        this.callback(err, page);
+                        this.emit("end");
+                    });
+                else
+                    getPage(pageI, this.callback);
+            }
         } else
-            callback(new Error("Page 1: JSON illogical answer (total_items = total_pages)"));
+            this.callback(new Error("Page 1: JSON illogical answer (total_items = total_pages)"));
     });
 }
+
+
+module.exports = OppsFetcher;
