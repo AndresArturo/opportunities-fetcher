@@ -2,7 +2,6 @@ const Processor = require("./Processor");
 const http = require("http");
 
 
-
 http.createServer((req, res) =>
     Processor((success) => {
         if (success)
@@ -11,4 +10,4 @@ http.createServer((req, res) =>
             res.statusCode = 500;
         res.end();
     })
-).listen(8000, "localhost");
+).listen(process.env.PORT || 3000);

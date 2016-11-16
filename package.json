@@ -4,8 +4,7 @@
     "description": "An app to track new available opportunities in the AIESEC portal",
     "main": "app.js",
     "scripts": {
-        "start": "node app.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "node app.js"
     },
     "author": "Griyftan",
     "license": "ISC",
