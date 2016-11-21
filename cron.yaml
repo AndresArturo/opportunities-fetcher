@@ -1,5 +1,5 @@
 version: 1
 cron:
- - name: "check"
-   url: "/"
-   schedule: "0 8 * * *"
+ - name: "scheduledCheck"
+   url: "/trigger"
+   schedule: "30 9 */2 * *"
